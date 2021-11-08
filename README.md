@@ -1,5 +1,5 @@
 # Pizzaria
-> This project is a pizzeria website and it has been made in javascript language.
+> Esre template foi criado em Javascript, HTML e CSS. O projeto foi feito tanto para Desktop quanto para Mobile.
 
 ### `Layout for Desktop`
 ![Desktop](https://github.com/Gustavo-mts/pizzaria/blob/main/projeto_pizzaria_desktop.gif)
