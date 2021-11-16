@@ -5,13 +5,13 @@ Instalar algum editor de código (VSCode de preferência)
 
 ## Instalação
 Crie uma pasta para o projeto no seu computador
-> mkdir Agencia  
+> mkdir Pizzaria
 
 Entre nela
-> cd Agencia
+> cd Pizzaria
 
 Clone o repositório desejado
-> git clone git@github.com:Gustavo-mts/agencia-telefonica.git
+> git clone git@github.com:Gustavo-mts/pizzaria.git
 
 
 ### `Layout for Desktop`
