@@ -57,9 +57,11 @@ aside.show {
 main {
     flex:1;
     padding:20px;
+    margin-top: 24px;
 }
 h1 {
     font-family:'Hepta Slab', Helvetica, Arial;
+    margin-top: 48px;
 }
 .pizza-area {
     display:grid;
