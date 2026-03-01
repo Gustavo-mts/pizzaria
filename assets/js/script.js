@@ -1,6 +1,6 @@
 let modalQt = 1;
 let cart = [];
-modalKey = 0;
+let modalKey = 0;
 
 const c = (el) => document.querySelector(el);
 const cs = (el) => document.querySelectorAll(el);
@@ -173,4 +173,74 @@ function updateCart() {
         c('aside').classList.remove('show');
         c('aside').style.left = '100vw';
     }
+}
+
+// === CONFIG ===
+const COMPANY_WHATSAPP = "5585996104553"; // DDI+DDD+NUMERO (só números). Ex: 55 88 99999-9999
+
+function getLoggedUser() {
+  try {
+    return JSON.parse(localStorage.getItem("pizza_user") || "null");
+  } catch {
+    return null;
+  }
+}
+
+function buildOrderMessage() {
+  const user = getLoggedUser();
+  const name = user?.name || "Cliente";
+  const phone = user?.phone || "não informado";
+
+  let lines = [];
+  lines.push("🍕 *Novo pedido*");
+  lines.push(`👤 Nome: ${name}`);
+  lines.push(`📱 Contato: ${phone}`);
+  lines.push("");
+  lines.push("*Itens:*");
+
+  let subTotal = 0;
+
+  cart.forEach((ci) => {
+    const pizza = pizzaJson.find((p) => p.id == ci.id);
+    if (!pizza) return;
+
+    const sizeLabel = ci.size === 0 ? "P" : ci.size === 1 ? "M" : "G";
+    const itemTotal = pizza.price * ci.qt;
+    subTotal += itemTotal;
+
+    lines.push(`- ${pizza.name} (${sizeLabel}) x${ci.qt} — R$ ${itemTotal.toFixed(2)}`);
+  });
+
+  const desconto = subTotal * 0.1;
+  const total = subTotal - desconto;
+
+  lines.push("");
+  lines.push(`Subtotal: R$ ${subTotal.toFixed(2)}`);
+  lines.push(`Desconto: R$ ${desconto.toFixed(2)}`);
+  lines.push(`Total: R$ ${total.toFixed(2)}`);
+  lines.push("");
+  lines.push("✅ Pode confirmar o pedido, por favor?");
+
+  return lines.join("\n");
+}
+
+function goToWhatsAppCheckout() {
+  const user = getLoggedUser();
+  if (!user) {
+    // agora o login é index.html
+    window.location.href = "./index.html";
+    return;
+  }
+
+  if (!cart.length) return;
+
+  const text = encodeURIComponent(buildOrderMessage());
+  const url = `https://wa.me/${COMPANY_WHATSAPP}?text=${text}`;
+  window.open(url, "_blank");
+}
+
+// clique no finalizar (só se existir na página)
+const finalizarBtn = document.querySelector(".cart--finalizar");
+if (finalizarBtn) {
+  finalizarBtn.addEventListener("click", goToWhatsAppCheckout);
 }
