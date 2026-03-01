@@ -1,6 +1,6 @@
 let modalQt = 1;
 let cart = [];
-let modalKey = 0;
+modalKey = 0;
 
 const c = (el) => document.querySelector(el);
 const cs = (el) => document.querySelectorAll(el);
